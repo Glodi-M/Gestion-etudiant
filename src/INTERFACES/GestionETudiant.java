@@ -5,6 +5,7 @@
 package INTERFACES;
 
 import CLASSES.Etudiant;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -311,6 +312,7 @@ public class GestionETudiant extends javax.swing.JFrame {
         et.setTelephone(jtTelephone.getText());
         et.ajouter();
         et.remplir(jtEtudiant, "Select * from etudiant");
+        JOptionPane.showMessageDialog(rootPane, "Vous avez ajouté(e) "+jtNom.getText());
     }//GEN-LAST:event_jbAjouterActionPerformed
 
     private void jbSupprimerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbSupprimerActionPerformed
