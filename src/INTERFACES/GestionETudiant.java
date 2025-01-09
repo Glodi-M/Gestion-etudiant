@@ -12,8 +12,8 @@ import javax.swing.JOptionPane;
  * @author HP ELITEBOOK
  */
 public class GestionETudiant extends javax.swing.JFrame {
-    
-    Etudiant et =new Etudiant();
+
+    Etudiant et = new Etudiant();
 
     /**
      * Creates new form GestionETudiant
@@ -23,13 +23,12 @@ public class GestionETudiant extends javax.swing.JFrame {
         this.setTitle("Gestion étudiant");
         this.setResizable(false);
         this.setLocationRelativeTo(null);
-        et.remplir(jtEtudiant, "Select * from etudiant");  
+        et.remplir(jtEtudiant, "Select * from etudiant");
     }
-    
-     // methode pour nettoyer les champs
-       
-    void nettoyer(){
-        
+
+    // methode pour nettoyer les champs
+    void nettoyer() {
+
         jtMatricule.setText("");
         jtNom.setText("");
         jtTelephone.setText("");
@@ -332,73 +331,71 @@ public class GestionETudiant extends javax.swing.JFrame {
     private void jbAjouterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbAjouterActionPerformed
         // TODO add your handling code here:
         if (jtMatricule.getText().equals("")) {
-            JOptionPane.showMessageDialog(null, "Veillez inserer un numero matricule  ","Attention",JOptionPane.ERROR_MESSAGE);
-        }
-        else {
-            
-        et.setMatricule(jtMatricule.getText());
-        et.setNom(jtNom.getText());
+            JOptionPane.showMessageDialog(null, "Veillez renseigner les informations ", "Attention", JOptionPane.ERROR_MESSAGE);
+        } else {
 
-        String sexe =(jrM.isSelected()== true) ? "M" : "F";
-        et.setSexe(sexe);
-        et.setTelephone(jtTelephone.getText());
-        et.ajouter();
-        et.remplir(jtEtudiant, "Select * from etudiant");
-        JOptionPane.showMessageDialog(rootPane, "Vous avez ajouté(e) "+jtNom.getText());
-        nettoyer();
-        
+            et.setMatricule(jtMatricule.getText());
+            et.setNom(jtNom.getText());
+
+            String sexe = (jrM.isSelected() == true) ? "M" : "F";
+            et.setSexe(sexe);
+            et.setTelephone(jtTelephone.getText());
+            et.ajouter();
+            et.remplir(jtEtudiant, "Select * from etudiant");
+            JOptionPane.showMessageDialog(rootPane, "Vous avez ajouté(e) " + jtNom.getText());
+            nettoyer();
+
         }
     }//GEN-LAST:event_jbAjouterActionPerformed
 
     private void jbSupprimerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbSupprimerActionPerformed
         // TODO add your handling code here:
-         if (jtMatricule.getText().equals("")){
-            
-            JOptionPane.showMessageDialog(null, "Veille selectionner une information  dans la grille ","Attention",JOptionPane.ERROR_MESSAGE);
+        if (jtMatricule.getText().equals("")) {
+
+            JOptionPane.showMessageDialog(null, "Veillez selectionner une information dans la grille ", "Attention", JOptionPane.ERROR_MESSAGE);
+        } else {
+            int test = JOptionPane.showConfirmDialog(null, "Voulez-vous supprimer cette information", "Confirmé", JOptionPane.YES_NO_OPTION);
+            if (test == JOptionPane.YES_OPTION) {
+                et.setMatricule(jtMatricule.getText());
+                et.supprimer();
+                et.remplir(jtEtudiant, "Select * from etudiant");
+                JOptionPane.showMessageDialog(null, "Vous avez supprimé " + jtNom.getText());
+                nettoyer();
+            }
         }
-         else{
-             int test = JOptionPane.showConfirmDialog(null, "Voulez-vous supprimer cette information","Confirmé",JOptionPane.YES_NO_OPTION);
-             if (test==JOptionPane.YES_OPTION) {
-                 et.setMatricule(jtMatricule.getText());
-                 et.supprimer();
-                 et.remplir(jtEtudiant, "Select * from etudiant");
-                 nettoyer();
-             }
-         }
-       
+
     }//GEN-LAST:event_jbSupprimerActionPerformed
 
     private void jtRechercheCaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_jtRechercheCaretUpdate
-        // TODO add your handling code here:
-        et.remplir(jtEtudiant, "Select * from etudiant where nom like'" +jtRecherche.getText() + "%'");
+        // filtrage par numero matricule et nom
+        et.remplir(jtEtudiant, "Select * from etudiant where nom like'" + jtRecherche.getText() + "%' or matricule like '" + jtRecherche.getText() + "%'");
     }//GEN-LAST:event_jtRechercheCaretUpdate
 
     private void jtEtudiantMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtEtudiantMouseClicked
         // TODO add your handling code here:
-        
+
         int ligne = jtEtudiant.getSelectedRow();
         jtMatricule.setText(jtEtudiant.getValueAt(ligne, 0).toString());
         jtNom.setText(jtEtudiant.getValueAt(ligne, 1).toString());
         String sexe = jtEtudiant.getValueAt(ligne, 2).toString();
         if (sexe.equals("M")) {
             jrM.setSelected(true);
-        
+
         } else {
             jrF.setSelected(true);
-        } 
+        }
         jtTelephone.setText(jtEtudiant.getValueAt(ligne, 3).toString());
     }//GEN-LAST:event_jtEtudiantMouseClicked
 
     private void jbModifierActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbModifierActionPerformed
         // TODO add your handling code here:
-        if (jtMatricule.getText().equals("")){
-            
-            JOptionPane.showMessageDialog(null, "Veille selectionner une information  dans la grille ","Attention",JOptionPane.ERROR_MESSAGE);
-        }
-        else {
+        if (jtMatricule.getText().equals("")) {
+
+            JOptionPane.showMessageDialog(null, "Veillez selectionner une information  dans la grille ", "Attention", JOptionPane.ERROR_MESSAGE);
+        } else {
             et.setMatricule(jtMatricule.getText());
             et.setNom(jtNom.getText());
-            String sexe =(jrM.isSelected()== true) ? "M": "F";
+            String sexe = (jrM.isSelected() == true) ? "M" : "F";
             et.setSexe(sexe);
             et.setTelephone(jtTelephone.getText());
             et.modifier();
