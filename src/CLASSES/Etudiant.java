@@ -98,4 +98,31 @@ public class Etudiant {
         }
 
     }
+    
+    // Methode pour MOdifier 
+    
+    public void modifier (){
+        
+        try {
+            String req = "update etudiant set nom = '"+getNom()+"',sexe = '"+getSexe()+"',telephone = '"+getTelephone()+"' where matricule = '"+getMatricule()+"'";
+            cnx.mise_a_jour(req);
+            
+        } catch (Exception e) {
+            
+            System.out.println("Erreur " +e.getMessage());
+        }
+    }
+    
+    // Methode pour supprimer 
+    
+    public void supprimer (){
+        
+        try {
+            String req = "delete from etudiant where matricule ='"+getMatricule()+"'";
+            cnx.mise_a_jour(req);
+        } catch (Exception e) {
+            
+            System.out.println("Erreur "+e.getMessage());
+        }
+    }
 }

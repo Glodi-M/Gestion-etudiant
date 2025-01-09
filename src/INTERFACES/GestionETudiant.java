@@ -35,6 +35,7 @@ public class GestionETudiant extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        buttonGroup1 = new javax.swing.ButtonGroup();
         jPanel4 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
@@ -80,10 +81,12 @@ public class GestionETudiant extends javax.swing.JFrame {
 
         jtTelephone.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
 
+        buttonGroup1.add(jrM);
         jrM.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jrM.setSelected(true);
         jrM.setText("M");
 
+        buttonGroup1.add(jrF);
         jrF.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jrF.setText("F");
         jrF.addActionListener(new java.awt.event.ActionListener() {
@@ -165,6 +168,11 @@ public class GestionETudiant extends javax.swing.JFrame {
 
         jbModifier.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jbModifier.setText("Modifier");
+        jbModifier.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbModifierActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -215,6 +223,11 @@ public class GestionETudiant extends javax.swing.JFrame {
 
             }
         ));
+        jtEtudiant.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jtEtudiantMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(jtEtudiant);
 
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
@@ -254,7 +267,7 @@ public class GestionETudiant extends javax.swing.JFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(138, 138, 138)
+                .addGap(158, 158, 158)
                 .addComponent(jLabel2)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -317,12 +330,58 @@ public class GestionETudiant extends javax.swing.JFrame {
 
     private void jbSupprimerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbSupprimerActionPerformed
         // TODO add your handling code here:
+         if (jtMatricule.getText().equals("")){
+            
+            JOptionPane.showMessageDialog(null, "Veille selectionner une information  dans la grille ","Attention",JOptionPane.ERROR_MESSAGE);
+        }
+         else{
+             int test = JOptionPane.showConfirmDialog(null, "Voulez-vous supprimer cette information","Confirmé",JOptionPane.YES_NO_OPTION);
+             if (test==JOptionPane.YES_OPTION) {
+                 et.setMatricule(jtMatricule.getText());
+                 et.supprimer();
+                 et.remplir(jtEtudiant, "Select * from etudiant");
+             }
+         }
+       
     }//GEN-LAST:event_jbSupprimerActionPerformed
 
     private void jtRechercheCaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_jtRechercheCaretUpdate
         // TODO add your handling code here:
         et.remplir(jtEtudiant, "Select * from etudiant where nom like'" +jtRecherche.getText() + "%'");
     }//GEN-LAST:event_jtRechercheCaretUpdate
+
+    private void jtEtudiantMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtEtudiantMouseClicked
+        // TODO add your handling code here:
+        
+        int ligne = jtEtudiant.getSelectedRow();
+        jtMatricule.setText(jtEtudiant.getValueAt(ligne, 0).toString());
+        jtNom.setText(jtEtudiant.getValueAt(ligne, 1).toString());
+        String sexe = jtEtudiant.getValueAt(ligne, 2).toString();
+        if (sexe.equals("M")) {
+            jrM.setSelected(true);
+        
+        } else {
+            jrF.setSelected(true);
+        } 
+        jtTelephone.setText(jtEtudiant.getValueAt(ligne, 3).toString());
+    }//GEN-LAST:event_jtEtudiantMouseClicked
+
+    private void jbModifierActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbModifierActionPerformed
+        // TODO add your handling code here:
+        if (jtMatricule.getText().equals("")){
+            
+            JOptionPane.showMessageDialog(null, "Veille selectionner une information  dans la grille ","Attention",JOptionPane.ERROR_MESSAGE);
+        }
+        else {
+            et.setMatricule(jtMatricule.getText());
+            et.setNom(jtNom.getText());
+            String sexe =(jrM.isSelected()== true) ? "M": "F";
+            et.setSexe(sexe);
+            et.setTelephone(jtTelephone.getText());
+            et.modifier();
+            et.remplir(jtEtudiant, "Select * from etudiant");
+        }
+    }//GEN-LAST:event_jbModifierActionPerformed
 
     /**
      * @param args the command line arguments
@@ -360,6 +419,7 @@ public class GestionETudiant extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
