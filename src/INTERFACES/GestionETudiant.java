@@ -23,7 +23,17 @@ public class GestionETudiant extends javax.swing.JFrame {
         this.setTitle("Gestion étudiant");
         this.setResizable(false);
         this.setLocationRelativeTo(null);
-        et.remplir(jtEtudiant, "Select * from etudiant");
+        et.remplir(jtEtudiant, "Select * from etudiant");  
+    }
+    
+     // methode pour nettoyer les champs
+       
+    void nettoyer(){
+        
+        jtMatricule.setText("");
+        jtNom.setText("");
+        jtTelephone.setText("");
+        jrM.setSelected(true);
     }
 
     /**
@@ -165,6 +175,11 @@ public class GestionETudiant extends javax.swing.JFrame {
 
         jbNettoyer.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jbNettoyer.setText("Nettoyer");
+        jbNettoyer.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbNettoyerActionPerformed(evt);
+            }
+        });
 
         jbModifier.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jbModifier.setText("Modifier");
@@ -316,7 +331,11 @@ public class GestionETudiant extends javax.swing.JFrame {
 
     private void jbAjouterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbAjouterActionPerformed
         // TODO add your handling code here:
-
+        if (jtMatricule.getText().equals("")) {
+            JOptionPane.showMessageDialog(null, "Veillez inserer un numero matricule  ","Attention",JOptionPane.ERROR_MESSAGE);
+        }
+        else {
+            
         et.setMatricule(jtMatricule.getText());
         et.setNom(jtNom.getText());
 
@@ -326,6 +345,9 @@ public class GestionETudiant extends javax.swing.JFrame {
         et.ajouter();
         et.remplir(jtEtudiant, "Select * from etudiant");
         JOptionPane.showMessageDialog(rootPane, "Vous avez ajouté(e) "+jtNom.getText());
+        nettoyer();
+        
+        }
     }//GEN-LAST:event_jbAjouterActionPerformed
 
     private void jbSupprimerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbSupprimerActionPerformed
@@ -340,6 +362,7 @@ public class GestionETudiant extends javax.swing.JFrame {
                  et.setMatricule(jtMatricule.getText());
                  et.supprimer();
                  et.remplir(jtEtudiant, "Select * from etudiant");
+                 nettoyer();
              }
          }
        
@@ -380,8 +403,14 @@ public class GestionETudiant extends javax.swing.JFrame {
             et.setTelephone(jtTelephone.getText());
             et.modifier();
             et.remplir(jtEtudiant, "Select * from etudiant");
+            nettoyer();
         }
     }//GEN-LAST:event_jbModifierActionPerformed
+
+    private void jbNettoyerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbNettoyerActionPerformed
+        // TODO add your handling code here:
+        nettoyer();
+    }//GEN-LAST:event_jbNettoyerActionPerformed
 
     /**
      * @param args the command line arguments
