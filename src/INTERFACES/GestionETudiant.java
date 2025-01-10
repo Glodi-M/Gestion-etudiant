@@ -23,7 +23,7 @@ public class GestionETudiant extends javax.swing.JFrame {
         this.setTitle("Gestion étudiant");
         this.setResizable(false);
         this.setLocationRelativeTo(null);
-        et.remplir(jtEtudiant, "Select * from etudiant");
+        et.remplir(jtEtudiant, "Select * from etudiant ORDER BY nom ASC");
     }
 
     // methode pour nettoyer les champs
@@ -325,11 +325,11 @@ public class GestionETudiant extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jrFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jrFActionPerformed
-        // TODO add your handling code here:
+        
     }//GEN-LAST:event_jrFActionPerformed
 
     private void jbAjouterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbAjouterActionPerformed
-        // TODO add your handling code here:
+        
         if (jtMatricule.getText().equals("")) {
             JOptionPane.showMessageDialog(null, "Veillez renseigner les informations ", "Attention", JOptionPane.ERROR_MESSAGE);
         } else {
@@ -341,7 +341,7 @@ public class GestionETudiant extends javax.swing.JFrame {
             et.setSexe(sexe);
             et.setTelephone(jtTelephone.getText());
             et.ajouter();
-            et.remplir(jtEtudiant, "Select * from etudiant");
+            et.remplir(jtEtudiant, "Select * from etudiant ORDER BY nom ASC");
             JOptionPane.showMessageDialog(rootPane, "Vous avez ajouté(e) " + jtNom.getText());
             nettoyer();
 
@@ -349,7 +349,7 @@ public class GestionETudiant extends javax.swing.JFrame {
     }//GEN-LAST:event_jbAjouterActionPerformed
 
     private void jbSupprimerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbSupprimerActionPerformed
-        // TODO add your handling code here:
+        
         if (jtMatricule.getText().equals("")) {
 
             JOptionPane.showMessageDialog(null, "Veillez selectionner une information dans la grille ", "Attention", JOptionPane.ERROR_MESSAGE);
@@ -358,7 +358,7 @@ public class GestionETudiant extends javax.swing.JFrame {
             if (test == JOptionPane.YES_OPTION) {
                 et.setMatricule(jtMatricule.getText());
                 et.supprimer();
-                et.remplir(jtEtudiant, "Select * from etudiant");
+                et.remplir(jtEtudiant, "Select * from etudiant ORDER BY nom ASC");
                 JOptionPane.showMessageDialog(null, "Vous avez supprimé " + jtNom.getText());
                 nettoyer();
             }
@@ -372,7 +372,7 @@ public class GestionETudiant extends javax.swing.JFrame {
     }//GEN-LAST:event_jtRechercheCaretUpdate
 
     private void jtEtudiantMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtEtudiantMouseClicked
-        // TODO add your handling code here:
+        
 
         int ligne = jtEtudiant.getSelectedRow();
         jtMatricule.setText(jtEtudiant.getValueAt(ligne, 0).toString());
@@ -388,7 +388,7 @@ public class GestionETudiant extends javax.swing.JFrame {
     }//GEN-LAST:event_jtEtudiantMouseClicked
 
     private void jbModifierActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbModifierActionPerformed
-        // TODO add your handling code here:
+        
         if (jtMatricule.getText().equals("")) {
 
             JOptionPane.showMessageDialog(null, "Veillez selectionner une information  dans la grille ", "Attention", JOptionPane.ERROR_MESSAGE);
@@ -399,14 +399,16 @@ public class GestionETudiant extends javax.swing.JFrame {
             et.setSexe(sexe);
             et.setTelephone(jtTelephone.getText());
             et.modifier();
-            et.remplir(jtEtudiant, "Select * from etudiant");
+            et.remplir(jtEtudiant, "Select * from etudiant ORDER BY nom ASC");
+            JOptionPane.showMessageDialog(null, "Vous avez modifié "+jtNom.getText());
             nettoyer();
         }
     }//GEN-LAST:event_jbModifierActionPerformed
 
     private void jbNettoyerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbNettoyerActionPerformed
-        // TODO add your handling code here:
+       
         nettoyer();
+        JOptionPane.showMessageDialog(null, "Vous avez nettoyé ");
     }//GEN-LAST:event_jbNettoyerActionPerformed
 
     /**
